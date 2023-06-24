@@ -1,3 +1,4 @@
+using ExampleApplication.SwaggerVersioning.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
@@ -8,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.RegisterHealthChecks();
 
 builder.Services.AddApiVersioning(o =>
 {
@@ -34,6 +37,8 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var app = builder.Build();
+
+app.UseHealthChecks();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
